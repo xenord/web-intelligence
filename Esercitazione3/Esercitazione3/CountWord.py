@@ -3,9 +3,12 @@ l = []
 
 class CountWord:
 
+    # prima di richiamare word_occurence
+    # può essere necessario fare split()
+    # del testo
     @staticmethod
     def word_occurence(text, wordcount):
-        for word in text.split():
+        for word in text:
             if word not in wordcount:
                 wordcount[word] = 1
             else:
