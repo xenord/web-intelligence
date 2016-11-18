@@ -165,25 +165,25 @@ function getMeta(metaname) {
 </ul>
 		<div class="sub-dx">
                 <ul xmlns:fn="http://www.w3.org/2005/02/xpath-functions"><li class="hentry">
-<strong>Tendenze</strong>
+<strong>Food and Wine</strong>
 <h3>
-<a href="/lifestyle/notizie/moda/tendenze/2016/11/14/le-star-lo-amano-il-velluto-protagonista-dellinverno.-video_aa515380-cffb-433e-9930-850a1c561f2c.html">Le star lo amano: il velluto protagonista dell'inverno. VIDEO</a>
+<a href="/lifestyle/notizie/passioni/food_wine/2016/11/17/caffe-per-gli-italiani-la-tazzina-e-irrinunciabile_3e9a3841-e901-4667-b994-f96c46abd48f.html">Caffè, per gli italiani la tazzina è irrinunciabile</a>
 </h3>
-<p>Dalle passerelle allo street style al guardaroba delle celebrities</p>
+<p>Più di due al giorno per il 50%, ma se si va all'estero il consumo diminuisce</p>
 </li>
 <li class="hentry">
-<strong>Sfilate</strong>
+<strong>Cosmetica</strong>
 <h3>
-<a href="/lifestyle/notizie/moda/sfilate/2016/11/14/moda-a-chatsworth-500-anni-di-abiti-preziosi-in-una-mostra-da-sogno_397668fb-89cb-443f-a600-76636291115f.html">Moda a Chatsworth, 500 anni di abiti preziosi in una mostra da sogno</a>
+<a href="/lifestyle/notizie/beauty/cosmetica/2016/11/17/mamme-e-figlie-10-segreti-comuni-per-una-pelle-piu-bella_e429d3b9-df8a-4d6f-a5f7-cf0ce0dc0275.html">Mamme e figlie: 10 segreti comuni per una pelle più bella</a>
 </h3>
-<p>Da Georgiana a Stella Tennant icone di stile nella dimora dei duchi del Devonshire. Gucci sponsor</p>
+<p>Cosa fare fin da adesso a 20, 30, 40 anni e oltre</p>
 </li>
 <li class="hentry">
-<strong>Best practice</strong>
+<strong>Cosmetica</strong>
 <h3>
-<a href="/lifestyle/notizie/societa/best_practice/2016/11/13/musica-bocelli-inaugura-percorso-astronomia-per-non-vedenti_f16f3042-72da-41d4-9101-837cea75232e.html">Musica: Bocelli inaugura percorso astronomia per non vedenti</a>
+<a href="/lifestyle/notizie/beauty/cosmetica/2016/11/17/trend-beauty-dallasia-polvere-oro-sul-viso-e-creme-miracolo-al-salmone_d676de46-3be5-4137-aa58-1c9e9928a8b4.html">Trend beauty dall'Asia, polvere oro sul viso e creme 'miracolo' al salmone</a>
 </h3>
-<p>Tenore all'Osservatorio del Chianti ascolta musica di Giove</p>
+<p>E poi tè alla carota nera amato dalle celebrities, diete di bellezza ‘Tomàn’, olio di cavallo antirughe</p>
 </li>
 </ul>
 
@@ -210,25 +210,25 @@ function getMeta(metaname) {
                 </ul>
 		<div class="sub-dx">
                 <ul xmlns:fn="http://www.w3.org/2005/02/xpath-functions"><li class="hentry">
+<strong>Stili di vita</strong>
+<h3>
+<a href="/saluteebenessere/notizie/rubriche/stilidivita/2016/11/17/fare-su-e-giu-col-peso-un-pericolo-per-il-cuore_4ccc8aaa-8063-4e98-8fe8-9167487cda18.html">Fare su e giù col peso, un pericolo per il cuore</a>
+</h3>
+<p>Chili persi e poi riguadagnanti aumentano rischio</p>
+</li>
+<li class="hentry">
+<strong>Medicina</strong>
+<h3>
+<a href="/saluteebenessere/notizie/rubriche/medicina/2016/11/15/tumore-del-pancreasin-italia-in-cinque-anni-18-nuovi-casi_05cac221-2d0c-468a-b904-83bfdbb70a6b.html">Tumore del pancreas,in Italia in cinque anni +18% nuovi casi</a>
+</h3>
+<p>Oncologi, attenzione a dieta scorretta e chili di troppo</p>
+</li>
+<li class="hentry">
 <strong>Alimentazione</strong>
 <h3>
 <a href="/saluteebenessere/notizie/rubriche/alimentazione/2016/11/15/sostanza-presente-in-alcuni-cibi-allunga-vitaprotegge-cuore_5df83644-d53d-43bc-b8e0-b885325be996.html">Sostanza presente in alcuni cibi allunga vita,protegge cuore</a>
 </h3>
 <p>In legumi, certi formaggi e cereali integrali</p>
-</li>
-<li class="hentry">
-<strong>Sanita'</strong>
-<h3>
-<a href="/saluteebenessere/notizie/rubriche/salute/2016/11/11/influenzalorenzin-si-vaccinaper-esperti-sara-aggressiva_120d29e6-acb6-455d-b8a4-02259e9bcf99.html">Influenza:Lorenzin si vaccina,'per esperti sara' aggressiva'</a>
-</h3>
-<p>'Proteggiamo i bambini e gli anziani'</p>
-</li>
-<li class="hentry">
-<strong>Medicina</strong>
-<h3>
-<a href="/saluteebenessere/notizie/rubriche/medicina/2016/11/11/osteoporosi-algoritmo-aifa-predice-rischio-frattura_dc456cc8-53b6-4530-b9d7-00f8da3a7c12.html">Osteoporosi, algoritmo Aifa predice rischio frattura</a>
-</h3>
-<p>In poche domande indicazioni su farmaci e medici da consultare</p>
 </li>
 </ul>
 
@@ -294,25 +294,25 @@ function getMeta(metaname) {
                 </ul>
 				<div class="sub-dx">
                 <ul xmlns:fn="http://www.w3.org/2005/02/xpath-functions"><li class="hentry">
-<strong>Shipping e Cantieri</strong>
+<strong>News</strong>
 <h3>
-<a href="/mare/notizie/rubriche/shippingecantieri/2016/11/14/lavoro-marittimi-incontro-al-ministero-dei-trasporti_6ac011e4-923d-461e-9d24-3b215d26c781.html">Lavoro: marittimi, incontro al ministero dei trasporti</a>
+<a href="/mare/notizie/portielogistica/news/2016/11/18/porti-depositi-gnl-chance-per-incrementare-crociere_85314d91-2fdb-4a8e-aa9f-ed39300a72e6.html">Porti: depositi Gnl chance per incrementare crociere</a>
 </h3>
-<p>Confitarma, Fedarlinea e sindacati su adeguamento certificazioni</p>
+<p>Convegno a Cagliari, "isola centrale per rifornimento navi"</p>
 </li>
 <li class="hentry">
-<strong>Uomini e Mare</strong>
+<strong>Speciali</strong>
 <h3>
-<a href="/mare/notizie/rubriche/uominiemare/2016/11/14/arriva-drone-sottomarino-low-cost-made-in-italy_d0b4d0cb-369c-4759-8cea-a0a4a9ad86de.html">Arriva drone sottomarino 'low cost' made in Italy</a>
+<a href="/mare/notizie/rubriche/speciali/2016/11/17/portiferrovie-tedesche-infrastrutture-per-sviluppo-trieste_4ff66685-0997-4db8-8cc6-d3d1a371a2c0.html">Porti:ferrovie tedesche, infrastrutture per sviluppo Trieste</a>
 </h3>
-<p> Nasce per laghi alpini ma può anche esplorare fondali marini </p>
+<p>Leader intermodale Ue Kombi Verkehr, prossimi anni grandi lavori</p>
 </li>
 <li class="hentry">
-<strong>Crociere e Traghetti</strong>
+<strong>Vela e Nautica</strong>
 <h3>
-<a href="/mare/notizie/rubriche/crociereetraghetti/2016/11/14/porti-tirrenia-collegamenti-genova-livorno-catania-malta_439a614d-800a-46eb-a7e0-14e736f8093b.html">Porti: Tirrenia, collegamenti Genova-Livorno-Catania-Malta</a>
+<a href="/mare/notizie/rubriche/nauticaesport/2016/11/17/nautica-al-gruppo-azimut-benetti-il-boat-builders-awards_cd4cf639-4e4a-48b2-91e9-db2e22862f49.html">Nautica: al Gruppo Azimut Benetti il Boat Builders Awards</a>
 </h3>
-<p>Gruppo onorato, servizio pensato per e con gli autotrasportatori</p>
+<p>Premio per nuovi propulsori, celebra innovazione in campo navale</p>
 </li>
 </ul>
 
@@ -384,25 +384,25 @@ function getMeta(metaname) {
                 </ul>
 		<div class="sub-dx">
 			<ul xmlns:fn="http://www.w3.org/2005/02/xpath-functions"><li class="hentry">
-<strong>Terra e Poli</strong>
+<strong>Biotech</strong>
 <h3>
-<a href="/scienza/notizie/rubriche/terrapoli/2016/11/14/lantartide-e-in-una-fase-di-declino-irreversibile_d127d3bb-a030-4b3c-bb67-18d028dc2876.html">L'Antartide è in una fase di declino irreversibile</a>
+<a href="/scienza/notizie/rubriche/biotech/2016/11/17/manipolata-la-fotosintesi_b7a9c300-b447-4dff-879e-7f6824625a8b.html">Manipolata la fotosintesi</a>
 </h3>
-<p>Gli indizi nelle foto aeree delle piattaforme di ghiaccio</p>
+<p>I raccolti possono aumentare del 20%</p>
 </li>
 <li class="hentry">
 <strong>Biotech</strong>
 <h3>
-<a href="/scienza/notizie/rubriche/biotech/2016/11/14/dal-terrorismo-al-terremoto-cosi-lo-stress-altera-il-cervello_fcb7af01-50c3-4697-bd84-f2178306afde.html">Dal terrorismo al terremoto, così lo stress altera il cervello</a>
+<a href="/scienza/notizie/rubriche/biotech/2016/11/17/i-piu-piccoli-vertebrati-con-4-zampe_0ba0004d-05f4-4ea8-996c-c38416842756.html">I più piccoli vertebrati con  4 zampe</a>
 </h3>
-<p>Basta un solo evento per modifiche a lungo termine</p>
+<p>Sono 3 nuove specie di salamandre</p>
 </li>
 <li class="hentry">
 <strong>Terra e Poli</strong>
 <h3>
-<a href="/scienza/notizie/rubriche/terrapoli/2016/11/14/ricostruita-in-laboratorio-unansa-del-po_2ec61cd6-c831-4680-b423-7215e4171236.html">Ricostruita in laboratorio un'ansa del Po</a>
+<a href="/scienza/notizie/rubriche/terrapoli/2016/11/17/nuova-zelandail-terremoto-ha-sollevato-il-fondale-marino-di-2-metri-_bfa495c5-af1d-4a98-ad99-e90d99ffb831.html">Nuova Zelanda,terremoto ha sollevato il fondo marino di 2 metri</a>
 </h3>
-<p>Aiuta a prevedere gli effetti dell'abbassamento del fiume</p>
+<p>Effetto che non sorprende nel caso di un sisma così violento</p>
 </li>
 </ul>
 
