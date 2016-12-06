@@ -1,0 +1,5 @@
+Scompattare la cartella 'bbc' all'interno della cartella PrimaConsegna.
+Se invece si volesse analizzare una cartella che NON sia 'bbc', scompattare comunque all'interno di PrimaConsegna e sostituire in __main__.py il nome 'bbc' con il nome della cartlla che si vuole analizzare.
+
+
+NOTA: vengono rimosse solo stopwords di parole inglesi.

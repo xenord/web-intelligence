@@ -84,7 +84,7 @@ if (n == 1):
                 if i < 500:
                     f.write(values + ' ' + str(keys) + '\n')
                     i += 1
-    cw.print_first_n_words(result_one, 5)
+    cw.print_first_n_words(result_one, 500)
     sys.exit()
 
 elif (n == 2):
@@ -122,7 +122,7 @@ elif (n == 2):
                     f.write(values + ' ' + str(keys) + '\n')
                     i += 1
 
-    cw.print_first_n_words(result_two, 5)
+    cw.print_first_n_words(result_two, 500)
     sys.exit()
 
 elif (n == 3):
