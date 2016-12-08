@@ -1,3 +1,11 @@
+__author__ = 'Francesco Benetello'
+
+'''
+Questa classe si occupa principalmente, data una lista
+di contare le occorrenze delle parole al suo interno
+e di stampare le prime n parole ordinate per occorrenze in
+senso descrescente.
+'''
 wordcount = {}
 news = []
 
