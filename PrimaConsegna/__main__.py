@@ -1,4 +1,5 @@
-__author__ = "Francesco Benetello"
+__author__ = "Francesco Benetello, Giacomo Ulliana, Alessandro Zanolla"
+__python_version_ = "3.5"
 
 import time
 import os
@@ -8,11 +9,22 @@ import io
 import sys
 import collections
 import gensim
-import math
 from CountWord import CountWord
 from gensim import utils
 from nltk.stem import WordNetLemmatizer
 
+'''
+Lo script è stato scritto in Python 3.5.
+
+Scompattare la cartella 'bbc' nella stessa directory di __main__.py e CountWord.py
+Se invece si volesse analizzare una cartella che NON sia 'bbc', copiare comunque 
+la directory delle notizie dove sono presenti __main__.py e CountWord.py
+e sostituire in __main__.py il nome 'bbc' con il nome della cartlla che si vuole analizzare.
+
+
+NOTA: vengono rimosse SOLO stopwords di parole inglesi.
+
+'''
 
 wordcount = {}
 
@@ -26,7 +38,7 @@ def clean_text(document):
         document_cleaned = re.sub('[!"#$%&\'()*+,-./:;<=>?@\[\\\\\]^_`{|}~]', ' ', document_lower)
         return document_cleaned.split()
 
-# Rimuoviamo i file di testo contenente l'output
+# Rimuoviamo i file di testo contenenti l'output
 def remove_file():
     if (os.path.exists('stopwords_included.txt') & os.path.exists('stopwords_removed.txt')):
         os.remove("stopwords_included.txt")
@@ -51,25 +63,25 @@ def remove_stopwords(textcleaned):
                 notizia_senza_stopwords.append(word)
         return notizia_senza_stopwords
 
-# Creo un oggetto CountWord (si veda la classe CountWord)
+# Creo un oggetto CountWord (si veda la classe CountWord per ulteriori informazioni)
 cw = CountWord()
 # Creo un oggetto WordNetLemmatizer (si veda nltk per ulteriori informazioni)
 wordnet_lemmatizer = WordNetLemmatizer()
 
-# Stampo un menù iterattivo con std input
+# Stampo un menù iterattivo con std input per l'utente
 print ("Seleziona quale esercizio eseguire:")
 print ("                                   ")
 print ("                                   ")
-print ("1 - trovare le 500 parole più frequenti (senza stopwords, con lemmatize)  ---->   Press 1")
+print ("1 - trovare le 500 parole più frequenti (senza stopwords, con lemmatize)    ---->   Press 1")
 print ("                                   ")
-print ("2 - Trovare le 500 parole più frequenti (stopwords comprese)     ---->  Press 2")
+print ("2 - Trovare le 500 parole più frequenti (stopwords comprese)    ---->  Press 2")
 print ("                                   ")
-print ("3 - Similarity (COSINE DISTANCE, TF-IDF, LSI)                       ---->  Press 3")
-print ("                                   ")
-print ("                                   ")
+print ("3 - Similarity (COSINE DISTANCE, TF-IDF, LSI)   ---->  Press 3")
 print ("                                   ")
 print ("                                   ")
-print ("4 - Rimuove i file TXT contenenti l'output stopwords_included/stopwords_removed   ---->  Press 4")
+print ("                                   ")
+print ("                                   ")
+print ("4 - Rimuove i file TXT contenenti l'output stopwords_included/stopwords_removed ---->  Press 4")
 print ("                                   ")
 print ("                                   ")
 n = int(input("Inserisci il numero delle esercizio da eseguire: "))
@@ -147,8 +159,10 @@ elif (n == 2):
     cw.print_first_n_words(result_two, 500)
     sys.exit()
 
-# Punto riguardante la creazione di un context based e il calcolo
-# della similitudine tra documenti
+# Punto riguardante la creazione di un content based recommender e il calcolo
+# della similitudine tra documenti.
+# Ho preso i primi 20 documenti della cartella tech all'interno di bbc.
+
 elif (n == 3):
 
     cartella_da_analizzare = 'bbc/tech'
@@ -170,6 +184,7 @@ elif (n == 3):
                 indice_documenti.append(documenti)
                 i += 1
 
+    # Contiamo le occorrenze delle parole
     occurrences = collections.Counter()
     for text in indice_documenti:
         occurrences.update(text)
@@ -180,13 +195,13 @@ elif (n == 3):
             if occurrences[word] <= 1:
                 documenti.remove(word)
 
+    # Decommentare se si vuole stampare i 20 documenti
     #for documenti in indice_documenti:
     #    print (documenti)
 
 
     lexicon = gensim.corpora.Dictionary(indice_documenti)
     corpus = [lexicon.doc2bow(text) for text in indice_documenti]
-
 
     '''
         FUNZIONE recommendations
@@ -203,45 +218,33 @@ elif (n == 3):
         top = sorted(enumerate(scores), key=lambda t: t[1], reverse=True)
         return top[:n]
 
+    '''
+        Cosine similarity
+    '''
+    print ("Cosine distance")
     print (recommendations(lexicon, corpus, corpus[19], n=5))
 
-    '''
-        Coseno similarity
-    '''
-    def length(vec):
-	    return math.sqrt(sum([count*count for count in vec.values()]))
-
-    def dot(vec1, vec2):
-        # consideriamo solo le parole in comune tra vec1 e vec2
-        wordsincommon = set(vec1.keys()) & set(vec2.keys())
-
-        prods = []
-        for word in wordsincommon:
-            count1 = vec1[word]
-            count2 = vec2[word]
-            prods.append(count1*count2)
-
-        return sum(prods)
-
-    def similarity(vec1, vec2):
-        return (dot(vec1, vec2) / (length(vec1)* length(vec2)))
-
-    #similarities = [(i, similarity(lexicon[19], lexicon[i])) for i in range(len(lexicon))]
-
 
     '''
-        Term Frequency * Inverse Document Frequency, Tf-Idf
+        Term Frequency * Inverse Document Frequency, TF-IDF
     '''
     tfidf = gensim.models.TfidfModel(corpus, normalize=True)
-    print ("Tf-Idf")
+    print ("TF-IDF")
     print (recommendations(lexicon, tfidf[corpus], corpus[19], n=5))
 
     '''
         LSI (Latent Semantic Indexing)
     '''
-    lsi = gensim.models.LsiModel(corpus, id2word=lexicon, num_topics=10)
-    print ("LSI")
-    print (recommendations(lexicon, lsi[corpus], lsi[corpus[19]], n=10))
+
+    print ("LSI con k = 4")
+    lsi = gensim.models.LsiModel(corpus, id2word=lexicon, num_topics=4)
+    print (recommendations(lexicon, lsi[corpus], lsi[corpus[19]], n=5))
+    print ("LSI con k = 5")
+    lsi = gensim.models.LsiModel(corpus, id2word=lexicon, num_topics=5)
+    print (recommendations(lexicon, lsi[corpus], lsi[corpus[19]], n=5))
+    print ("LSI con k = 6")
+    lsi = gensim.models.LsiModel(corpus, id2word=lexicon, num_topics=6)
+    print (recommendations(lexicon, lsi[corpus], lsi[corpus[19]], n=5))
 
     sys.exit()
 
