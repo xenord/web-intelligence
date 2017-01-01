@@ -30,20 +30,24 @@ download_dir = 'pages'
 # Se la cartella contenente le pagine html esiste
 # chiedo all'utente se la vuole cancellare e ricreare
 if os.path.exists(download_dir):
-	while (True):
-		print ("Do you wanna remove entire pages directory? Y|y|n|N")
-		input = sys.stdin.readline().rstrip('\n')
-		if (input == "y") | (input == "Y"):
-			shutil.rmtree(download_dir)
-			print ("Removed with success!")
-			break
-		elif (input == "n") | (input == "N"):
-			print ("Continuing the script..")
-			time.sleep(1)
-			break
-		else:
-			print ("Unknown command")
-			continue
+
+	def remove_directory(download_dir):
+		while (True):
+			print ("Do you wanna remove entire pages directory? Y|y|n|N")
+			input = sys.stdin.readline().rstrip('\n')
+			if (input == "y") | (input == "Y"):
+				shutil.rmtree(download_dir)
+				print ("Removed with success!")
+				break
+			elif (input == "n") | (input == "N"):
+				print ("Continuing the script..")
+				time.sleep(1)
+				break
+			else:
+				print ("Unknown command")
+				continue
+
+	remove_directory(download_dir)
 
 if not os.path.exists(download_dir):
 	os.makedirs(download_dir)
@@ -105,8 +109,6 @@ finally:
 
 			print (newsvectors)
 
-			# calcoliamo la similarità tra notizie
-
 			def length(vec):
 				return math.sqrt(sum([count*count for count in vec.values()]))
 
@@ -119,17 +121,21 @@ finally:
 					count1 = vec1[word]
 					count2 = vec2[word]
 					prods.append(count1*count2)
+					
 				return sum(prods)
 
 			def similarity(vec1, vec2):
-				return dot(vec1, vec2) / (length(vec1)*length(vec2))
+				return (dot(vec1, vec2) / (length(vec1)* length(vec2)))
+
 
 			# (docid, score)
 			score = 0
 			#print (similarity(newsvectors[4], newsvectors[4]) == 1)
+
 			similarities = [(i, similarity(newsvectors[4], newsvectors[i])) for i in range(len(newsvectors))]
 			top = sorted(similarities, key=lambda docidscore: (score), reverse=True)[:10]
-			#print (top)
+
+			print (top)
 			#print (news[4])
 
 			# per controllare le differenze
