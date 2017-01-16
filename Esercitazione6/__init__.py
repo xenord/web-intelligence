@@ -1,4 +1,3 @@
-# coding=utf-8
 __author__ = "Francesco Benetello"
 
 from pyspark import SparkContext, SparkConf
@@ -7,10 +6,12 @@ from pyspark.mllib.fpm import FPGrowth
 import pyspark
 
 sc = SparkContext()
-tweet = sc.textFile("2015-01-08_geo_en_it_10M.plain.json")
-#tweet = sc.textFile("venezia72_2015.txt")
+#tweet = sc.textFile("/srv/2015-01-08_geo_en_it_10M.plain.json")
+tweet = sc.textFile("venezia72_2015.txt")
 transactions = tweet.map(lambda line: line.strip().split(' '))
-model = FPGrowth.train(transactions, minSupport=0.2, numPartitions=10)
+unique = transactions.map(lambda x: list(set(x))).cache()
+model = FPGrowth.train(unique, minSupport=0.1, numPartitions=16)
+
 result = model.freqItemsets().collect()
 for fi in result:
     print(fi)
