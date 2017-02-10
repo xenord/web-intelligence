@@ -17,6 +17,8 @@ def getItemSetValue(itemset,itemsetCollection):
             index = index + 1
         if length2 == orgLen:
             count = count + 1
+    print ("count:")
+    print (count)
     return count
 
 def itemSetGenerator(previousItemset,width,refinedItemSet,minsupcount,newdataSet):
@@ -48,6 +50,10 @@ def itemSetGenerator(previousItemset,width,refinedItemSet,minsupcount,newdataSet
 
 def apriori(dataset, minsup):
     minsup = (minsup * len(dataset))/100
+    print ("Lunghezza del supporto:")
+    print (minsup)
+    print ("Lunghezza del dataset:")
+    print (len(dataset))
     originalItemset = dataset
     uniqueItemsValues = {}
     refinedItemSet = {}
@@ -76,6 +82,7 @@ def apriori(dataset, minsup):
         for j in range(i+1,len(itemset)):
             #print(j)
             key = itemset[i],itemset[j]
+            print (key)
             value = getItemSetValue(key,dataset)
             unrefinedItemset[key] = value
             if value >= minsup:
@@ -111,7 +118,7 @@ def apriori(dataset, minsup):
 
 if __name__ == '__main__':
 
-    filePath = "10M_Tweets.txt"
+    filePath = "/stud/s3/fbenetel/SecondaConsegna/sample_of_sample.txt"
     with open(filePath, encoding="utf8") as ins:
         array = []
         items = []
@@ -128,8 +135,8 @@ if __name__ == '__main__':
     print("Frequents Itemset con Random Sampling")
 
     # Selezionare qui sotto il SUPPORTO MINIMO
-    MINUMUM_SUPPORT_THRESHOLD = 0.25
-    SAMPLE_OF_SIZES = 50
+    MINUMUM_SUPPORT_THRESHOLD = 0.5
+    SAMPLE_OF_SIZES = 100
 
     subsetLength = (len(array2)*SAMPLE_OF_SIZES)//100
     simpleRandomDataset = []
