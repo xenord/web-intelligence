@@ -8,11 +8,11 @@ import json
 sc = SparkContext()
 
 ### Definisco PATH, SUPPORTO, GRANDEZZA SAMPLE
-filePath = '/stud/s3/fbenetel/WebIntelligence/Dataset/dataset_cleaned.txt'
-#filePath = '/Users/francescobenetello/Documents/Dataset/sample.txt'
+#filePath = '/stud/s3/fbenetel/WebIntelligence/Dataset/dataset_cleaned.txt'
+filePath = '/Users/francescobenetello/Documents/Dataset/sample.txt'
 # Lunghezza dataset 12230456
 #lunghezzza ideal 12230448
-SUPPORTO = 0.0001
+SUPPORTO = 0.5
 PARTIZIONI = 16
 ##############################################
 
@@ -36,7 +36,7 @@ print ("Lunghezza dataset " + str(len) + "\n")
 ##############################################
 
 def supporto_calcolato(supporto,dataset_len):
-	return supporto*(dataset_len//PARTIZIONI)
+	return (supporto*(dataset_len//PARTIZIONI))/100
 
 
 def word_occurence(list_of_list):

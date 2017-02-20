@@ -7,7 +7,7 @@ sc = SparkContext()
 
 ### Definisco PATH, SUPPORTO, GRANDEZZA SAMPLE
 filePath = '/Users/francescobenetello/Documents/Dataset/sample.txt'
-SUPPORTO = 0.01
+SUPPORTO = 0.5
 GRANDEZZA_SAMPLE = 20
 ##############################################
 
@@ -26,7 +26,7 @@ for x in length:
 ##############################################
 
 def supporto_calcolato(supporto,dataset_len):
-	return supporto*dataset_len
+	return (supporto*dataset_len)/100
 ### Calcolo supporto minimo e lunghezza del sample
 subsetLength = (len*GRANDEZZA_SAMPLE)//100
 minsup = supporto_calcolato(SUPPORTO, subsetLength)
