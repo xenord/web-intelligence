@@ -6,7 +6,7 @@ import time
 sc = SparkContext()
 
 ### Definisco PATH, SUPPORTO, GRANDEZZA SAMPLE
-filePath = "/stud/s3/fbenetel/SecondaConsegna/ciaone.txt"
+filePath = '/Users/francescobenetello/Documents/Dataset/sample.txt'
 SUPPORTO = 0.01
 GRANDEZZA_SAMPLE = 20
 ##############################################
@@ -63,6 +63,8 @@ def word_pairs(rdd1):
     return [a + " " + b for a,b in zip(words, words[1:])]
 
 pairs = rdd1.flatMap(word_pairs)
+print (type(rdd1))
+print (type(pairs))
 counter = pairs.map(lambda x: (x, 1)).reduceByKey(lambda a, b: a + b)
 rdd2 = counter.filter(lambda (x, count): count >= minsup)
 rdd3 = rdd2.takeOrdered(subsetLength, key = lambda x: -x[1])
@@ -83,5 +85,3 @@ print("-------------------------------------------")
 for y in rdd3:
 	print (y)
 print("Tempo di esecuzione: " + str(TIME) + " secs")
-
-
