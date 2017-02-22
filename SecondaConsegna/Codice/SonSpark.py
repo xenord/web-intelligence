@@ -7,25 +7,25 @@ import json
 # Creo un oggetto SparkContext
 sc = SparkContext()
 
-### Definisco PATH, SUPPORTO, GRANDEZZA SAMPLE
+### Definisco PATH, SUPPORTO
 #filePath = '/stud/s3/fbenetel/WebIntelligence/Dataset/dataset_cleaned.txt'
 filePath = '/Users/francescobenetello/Documents/Dataset/sample.txt'
 # Lunghezza dataset 12230456
 #lunghezzza ideal 12230448
-SUPPORTO = 0.5
-PARTIZIONI = 16
+SUPPORTO = 0.001
 ##############################################
 
 
 # Apro il file
-
 '''
+openJSON = sc.textFile(filePath)
+
 def f(linea):
 	return json.loads(linea)["text"]
 
 set_of_tweets = openJSON.map(lambda linea: json.loads(linea)["text"])
 '''
-set_of_tweets = sc.textFile(filePath, PARTIZIONI)
+set_of_tweets = sc.textFile(filePath)
 ### Calcolo la lunghezza dell'intero dataset
 lineLengths = set_of_tweets.map(lambda s: len(s))
 length = lineLengths.collect()
@@ -36,7 +36,7 @@ print ("Lunghezza dataset " + str(len) + "\n")
 ##############################################
 
 def supporto_calcolato(supporto,dataset_len):
-	return (supporto*(dataset_len//PARTIZIONI))/100
+	return (supporto*(dataset_len))
 
 
 def word_occurence(list_of_list):
@@ -79,6 +79,7 @@ print("Occorrenze >= " + str(minsup) + "\n")
 START_TIME = time.time()
 
 splitted = set_of_tweets.map(lambda line: line.split())
+print ('Numero partizioni: ' + str(splitted.getNumPartitions()))
 items = splitted.mapPartitions(word_occurence).filter(lambda (word, count): count >= minsup).glom().collect()
 
 
