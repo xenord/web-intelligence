@@ -1,3 +1,5 @@
+__author__ = 'Francesco Benetello'
+
 from pyspark import SparkContext, SparkConf
 from datetime import datetime
 import pyspark
@@ -5,7 +7,7 @@ import pyspark
 # Creo un oggetto SparkContext
 sc = SparkContext()
 
-### Definisco PATH, SUPPORTO, GRANDEZZA SAMPLE
+### Definisco PATH, SUPPORTO, GRANDEZZA SAMPLE, SEED
 filePath = '/Users/francescobenetello/Documents/Dataset/sample.txt'
 SUPPORTO = 0.5
 GRANDEZZA_SAMPLE = 20
@@ -33,6 +35,7 @@ subsetLength = (len*GRANDEZZA_SAMPLE)//100
 minsup = supporto_calcolato(SUPPORTO, subsetLength)
 print("Occorrenze >= " + str(minsup) + "\n")
 print("Lunghezza sample: " + str(subsetLength) + "\n")
+print("SEED: " + str(SEED) + "\n")
 ##################################################
 
 
