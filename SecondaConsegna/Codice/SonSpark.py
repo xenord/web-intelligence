@@ -1,33 +1,20 @@
 from pyspark import SparkContext, SparkConf
+from datetime import datetime
 import pyspark
-import time
-import json
 
 
 # Creo un oggetto SparkContext
 sc = SparkContext()
 
 ### Definisco PATH, SUPPORTO
-#filePath = '/stud/s3/fbenetel/WebIntelligence/Dataset/dataset_cleaned.txt'
-filePath = '/Users/francescobenetello/Documents/Dataset/sample.txt'
-# Lunghezza dataset 12230456
-#lunghezzza ideal 12230448
-SUPPORTO = 0.001
+PATH = '/Users/francescobenetello/Documents/Dataset/sample.txt'
+SUPPORTO = 0.01
 ##############################################
 
 
-# Apro il file
-'''
-openJSON = sc.textFile(filePath)
-
-def f(linea):
-	return json.loads(linea)["text"]
-
-set_of_tweets = openJSON.map(lambda linea: json.loads(linea)["text"])
-'''
-set_of_tweets = sc.textFile(filePath)
+rdd = sc.textFile(PATH)
 ### Calcolo la lunghezza dell'intero dataset
-lineLengths = set_of_tweets.map(lambda s: len(s))
+lineLengths = rdd.map(lambda s: len(s))
 length = lineLengths.collect()
 len = 0
 for x in length:
@@ -67,6 +54,9 @@ def word_pairs(words):
 def word_triple(words):
 	return [a + " " + b + " " + c for a,b,c in zip(words, words[1:], words[2:])]
 
+def word_quadruples(words):
+    return [a + " " + b + " " + c + " " + d for a,b,c,d in zip(words, words[1:], words[2:], words[3:])]
+
 
 ### Calcolo supporto minimo e lunghezza del sample
 minsup = supporto_calcolato(SUPPORTO, len)
@@ -76,46 +66,89 @@ print("Occorrenze >= " + str(minsup) + "\n")
 
 
 
-START_TIME = time.time()
+START_TIME = datetime.now()
 
-splitted = set_of_tweets.map(lambda line: line.split())
+splitted = rdd.map(lambda line: line.split())
 print ('Numero partizioni: ' + str(splitted.getNumPartitions()))
+# ITEM
 items = splitted.mapPartitions(word_occurence).filter(lambda (word, count): count >= minsup).glom().collect()
 
-
+# ITEMSET
 words = splitted.flatMap(word_pairs)
 itemset = words.mapPartitions(word_occurence_pairs).filter(lambda (word, count): count >= minsup).glom().collect()
 
 triples = splitted.flatMap(word_triple)
 itemsets = triples.mapPartitions(word_occurence_pairs).filter(lambda (word, count): count >= minsup).glom().collect()
-END_TIME = time.time()
+
+quadruples = splitted.flatMap(word_quadruples)
+itemsetss = quadruples.mapPartitions(word_occurence_pairs).filter(lambda (word, count): count >= minsup).glom().collect()
+
+END_TIME = datetime.now()
 
 num_partition = 1
-print ("ITEMS")
+empty_flag = 1
 for x in items:
-	print ("PARTIZIONE NUMERO " + str(num_partition) + "\n")
-	for y in x:
-		print(y)
-	print("FINE PARTIZIONE\n")
-	num_partition += 1
+	if x:
+		print ("PARTIZIONE NUMERO " + str(num_partition) + "\n")
+		for y in x:
+			print(y)
+		print("FINE PARTIZIONE\n")
+		num_partition += 1
+	else:
+		empty_flag += 1
+		num_partition += 1
+
+if (empty_flag == num_partition):
+	print ("Non ci sono ITEMS.")
+
 
 num_partition = 1
-print ("ITEMSET")
+empty_flag = 1
 for x in itemset:
-	print ("PARTIZIONE NUMERO " + str(num_partition) + "\n")
-	for y in x:
-		print(y)
-	print("FINE PARTIZIONE\n")
-	num_partition += 1
+	if x:
+		print ("PARTIZIONE NUMERO " + str(num_partition) + "\n")
+		for y in x:
+			print(y)
+		print("FINE PARTIZIONE\n")
+		num_partition += 1
+	else:
+		empty_flag += 1
+		num_partition += 1
+
+if (empty_flag == num_partition):
+	print ("Non ci sono coppie di ITEMSET.")
 
 num_partition = 1
-print ("ITEMSET")
+empty_flag = 1
 for x in itemsets:
-	print ("PARTIZIONE NUMERO " + str(num_partition) + "\n")
-	for y in x:
-		print(y)
-	print("FINE PARTIZIONE\n")
-	num_partition += 1
+	if x:
+		print ("PARTIZIONE NUMERO " + str(num_partition) + "\n")
+		for y in x:
+			print(y)
+		print("FINE PARTIZIONE\n")
+		num_partition += 1
+	else:
+		empty_flag += 1
+		num_partition += 1
 
-TIME =(END_TIME-START_TIME)
+if (empty_flag == num_partition):
+	print ("Non ci sono triple di ITEMSET.")
+
+num_partition = 1
+empty_flag = 1
+for x in itemsetss:
+	if x:
+		print ("PARTIZIONE NUMERO " + str(num_partition) + "\n")
+		for y in x:
+			print(y)
+		print("FINE PARTIZIONE\n")
+		num_partition += 1
+	else:
+		empty_flag += 1
+		num_partition += 1
+
+if (empty_flag == num_partition):
+	print ("Non ci sono  quadruple di ITEMSET.")
+
+TIME = format(END_TIME-START_TIME)
 print("Tempo di esecuzione: " + str(TIME) + " secs")       			
