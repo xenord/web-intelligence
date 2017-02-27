@@ -1,0 +1,25 @@
+Occorrenze >= 24460.89
+
+Lunghezza sample: 2446089
+
+SEED: 1
+
+
+
+ITEMS => OCCORRENZE
+
+
+(u'', 2716563)
+(u'day', 31365)
+(u'happy', 33282)
+(u'follow', 68142)
+(u'love', 99889)
+(u'lol', 36985)
+(u'people', 30250)
+(u'time', 33846)
+(u'make', 32576)
+(u'good', 45859)
+(u'back', 32198)
+
+
+Tempo di esecuzione: 0:01:03.884983 secs

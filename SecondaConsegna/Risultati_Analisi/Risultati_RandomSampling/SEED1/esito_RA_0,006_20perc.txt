@@ -1,0 +1,48 @@
+Occorrenze >= 14676.534
+
+Lunghezza sample: 2446089
+
+SEED: 1
+
+
+
+ITEMS => OCCORRENZE
+
+
+(u'', 2716563)
+(u'feel', 17639)
+(u'hate', 15866)
+(u'day', 31365)
+(u'today', 23302)
+(u'shit', 21157)
+(u'happy', 33282)
+(u'follow', 68142)
+(u'great', 18950)
+(u'\U0001f602', 22590)
+(u'birthday', 19460)
+(u'watch', 24332)
+(u'love', 99889)
+(u'fuck', 19858)
+(u':)', 16860)
+(u'lol', 36985)
+(u'hope', 18273)
+(u'give', 16374)
+(u'night', 19532)
+(u'people', 30250)
+(u'time', 33846)
+(u'home', 14969)
+(u'game', 15063)
+(u'life', 22095)
+(u'make', 32576)
+(u'2', 18648)
+(u'work', 15605)
+(u'good', 45859)
+(u'miss', 15998)
+(u'wanna', 17916)
+(u'video', 15208)
+(u'im', 20048)
+(u'back', 32198)
+(u'gonna', 16360)
+
+
+Tempo di esecuzione: 0:01:04.097560 secs

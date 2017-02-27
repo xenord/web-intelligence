@@ -1,0 +1,19 @@
+Lunghezza dataset 12230448
+
+Occorrenze >= 122304.0
+
+Numero partizioni: 16
+(u'good', 230791)
+(u'love', 498152)
+(u'people', 150992)
+(u'time', 169748)
+(u'follow', 341451)
+(u'make', 163959)
+(u'day', 156645)
+(u'back', 160174)
+(u'lol', 185922)
+(u'happy', 166632)
+Non ci sono coppie di valori!
+Non ci sono triple di valori!
+Non ci sono quadruple di valori!
+Tempo di esecuzione: 0:05:06.590889 secs
