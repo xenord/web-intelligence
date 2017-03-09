@@ -7,9 +7,9 @@ import pyspark
 sc = SparkContext()
 
 ### Definisco PATH, SUPPORTO
-PATH = "/Users/francescobenetello/Desktop/dataset_cleaned.txt"
-SUPPORTO = 0.01
-LUNGHEZZA_MAX_OUTPUT = 50
+PATH = "/stud/s3/fbenetel/WebIntelligence/Dataset/dataset_cleaned.txt"
+SUPPORTO = 0.006
+MAX_OUTPUT_LENGTH = 50
 ##############################################
 
 
@@ -23,8 +23,8 @@ for x in length:
 print ("Lunghezza dataset " + str(len) + "\n") 
 ##############################################
 
-def supporto_calcolato(supporto,dataset_len):
-	return (supporto*(dataset_len)/100)
+def get_minimun_occurence(supporto,dataset_len):
+	return (supporto*(dataset_len))
 
 
 def word_occurence(list_of_list):
@@ -60,65 +60,60 @@ def word_quadruples(words):
 
 
 ### Calcolo supporto minimo e lunghezza del sample
-minsup = supporto_calcolato(SUPPORTO, len)
+minsup = get_minimun_occurence(SUPPORTO, len)
 minsup = round(minsup)
 print("Occorrenze >= " + str(minsup) + "\n") 
 ##################################################
 
 
-splitted = rdd.map(lambda line: line.split())
-print ('Numero partizioni usate: ' + str(splitted.getNumPartitions()) + '\n')
 
 START_TIME = datetime.now()
 
+splitted = rdd.map(lambda line: line.split())
+print ('Numero partizioni: ' + str(splitted.getNumPartitions()))
 # ITEM
-items = splitted.mapPartitions(word_occurence).filter(lambda (word, count): count >= minsup)
-items = items.reduceByKey(lambda v1, v2: v1+v2).takeOrdered(LUNGHEZZA_MAX_OUTPUT, key = lambda x: -x[1])
-
+items = splitted.mapPartitions(word_occurence).reduceByKey(lambda a, b: a + b).filter(lambda (word, count): count >= minsup).take(MAX_OUTPUT_LENGTH)
 
 # ITEMSET
 words = splitted.flatMap(word_pairs)
-itemset = words.mapPartitions(word_occurence_pairs).filter(lambda (word, count): count >= minsup)
-itemset = itemset.reduceByKey(lambda v1, v2: v1+v2).takeOrdered(LUNGHEZZA_MAX_OUTPUT, key = lambda x: -x[1])
+itemset = words.mapPartitions(word_occurence_pairs).reduceByKey(lambda a, b: a + b).filter(lambda (word, count): count >= minsup).take(MAX_OUTPUT_LENGTH)
 
 triples = splitted.flatMap(word_triple)
-itemsets = triples.mapPartitions(word_occurence_pairs).filter(lambda (word, count): count >= minsup)
-itemsets = itemsets.reduceByKey(lambda v1, v2: v1+v2).takeOrdered(LUNGHEZZA_MAX_OUTPUT, key = lambda x: -x[1])
+itemsets = triples.mapPartitions(word_occurence_pairs).reduceByKey(lambda a, b: a + b).filter(lambda (word, count): count >= minsup).take(MAX_OUTPUT_LENGTH)
 
 quadruples = splitted.flatMap(word_quadruples)
-itemsetss = quadruples.mapPartitions(word_occurence_pairs).filter(lambda (word, count): count >= minsup)
-itemsetss = itemsetss.reduceByKey(lambda v1, v2: v1+v2).takeOrdered(LUNGHEZZA_MAX_OUTPUT, key = lambda x: -x[1])
+itemsetss = quadruples.mapPartitions(word_occurence_pairs).reduceByKey(lambda a, b: a + b).filter(lambda (word, count): count >= minsup).take(MAX_OUTPUT_LENGTH)
 
 END_TIME = datetime.now()
 
 if items:
-	for word, frequencies in items:
-		print (word, frequencies)
+	for x in items:
+		print(x)
 
 if not items:
-	print ("Non ci sono items da stampare!\n")
+	print("Vuoto!")
 
 if itemset:
-	for word, frequencies in itemset:
-		print (word, frequencies)
+	for x in itemset:
+		print(x)
 
 if not itemset:
-	print ("Non ci sono coppie da stampare!\n")
+	print("Non ci sono coppie di valori!")
 
 if itemsets:
-	for word, frequencies in itemsets:
-		print (word, frequencies)
+	for x in itemsets:
+		print(x)
 
 if not itemsets:
-	print ("Non ci sono triple da stampare!\n")
+	print("Non ci sono triple di valori!")
 
 if itemsetss:
-	for word, frequencies in itemsetss:
-		print (word, frequencies)
+	for x in itemsetss:
+		print(x)
 
 if not itemsetss:
-	print ("Non ci sono quadruple da stampare!\n")
+	print("Non ci sono quadruple di valori!")
 
 
 TIME = format(END_TIME-START_TIME)
-print("Tempo di esecuzione: " + str(TIME) + " secs\n")
+print("Tempo di esecuzione: " + str(TIME) + " secs")       			
