@@ -9,7 +9,6 @@ SEED: 5
 ITEMS => OCCORRENZE
 
 
-(u'', 2716708)
 (u'day', 30992)
 (u'happy', 33291)
 (u'follow', 67803)

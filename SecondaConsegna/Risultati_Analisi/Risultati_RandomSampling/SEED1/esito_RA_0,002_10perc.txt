@@ -9,8 +9,6 @@ SEED: 1
 ITEMS => OCCORRENZE
 
 
-(u'', 1358048)
-(u'\U0001f629', 3092)
 (u'tonight', 5632)
 (u'hours', 2448)
 (u'week', 3616)
@@ -21,6 +19,7 @@ ITEMS => OCCORRENZE
 (u'fucking', 6858)
 (u'rt', 7148)
 (u'2015', 3305)
+
 (u'it.', 4551)
 (u'subscribe', 2702)
 (u'text', 2714)
@@ -31,8 +30,8 @@ ITEMS => OCCORRENZE
 (u'funny', 3093)
 (u'house', 4747)
 (u'boy', 2736)
+
 (u'making', 3338)
-(u'\u2764\ufe0f', 3329)
 (u'@justinbieber', 3274)
 (u'big', 6375)
 (u'school', 6305)
@@ -46,18 +45,12 @@ ITEMS => OCCORRENZE
 (u'play', 4933)
 (u'feeling', 2956)
 (u'#asknacks', 3766)
-(u'\U0001f612', 3599)
-(u'\U0001f62d', 3876)
 (u'(at', 4370)
-(u'\U0001f60d', 5189)
-(u'\u2665', 2789)
 (u'hate', 7900)
 (u'end', 2838)
-(u'\U0001f44d', 2584)
 (u'friends', 4757)
 (u'favorite', 2740)
 (u'hit', 2774)
-(u'\U0001f44c', 2451)
 (u'excited', 2555)
 (u'yeah', 4231)
 (u'hey', 5985)
@@ -66,7 +59,6 @@ ITEMS => OCCORRENZE
 (u'(with', 5369)
 (u'day', 15641)
 (u'dont', 4382)
-(u'\U0001f602\U0001f602', 4457)
 (u'today', 11661)
 (u'shit', 10460)
 (u'#jobs', 4672)
@@ -108,11 +100,9 @@ ITEMS => OCCORRENZE
 (u'twitter', 3547)
 (u'waiting', 2560)
 (u'nigga', 4686)
-(u'\U0001f602', 11350)
 (u'friday', 2459)
 (u'hard', 4649)
 (u'birthday', 9780)
-(u'\U0001f60a', 3312)
 (u'makes', 4923)
 (u'watch', 12191)
 (u'love', 50121)
@@ -202,7 +192,6 @@ ITEMS => OCCORRENZE
 (u'bitch', 4487)
 (u'tomorrow', 5453)
 (u'remember', 2947)
-(u'\U0001f602\U0001f602\U0001f602', 3525)
 (u'back', 16185)
 (u'days', 4240)
 (u'find', 4192)
@@ -215,7 +204,6 @@ ITEMS => OCCORRENZE
 (u'gonna', 8151)
 (u'lot', 3525)
 (u'..', 3235)
-(u'\U0001f64f', 2819)
 (u'mom', 3813)
 (u'free', 3475)
 (u'@themattespinosa', 4862)
@@ -240,3 +228,4 @@ ITEMSET => OCCORRENZE
 
 
 Tempo di esecuzione: 0:00:32.725322 secs
+

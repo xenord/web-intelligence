@@ -6,7 +6,6 @@ Numero partizioni: 16
 (u'life', 109471)
 (u'great', 95146)
 (u'game', 75404)
-(u'\U0001f602', 112304)
 (u'good', 230791)
 (u'2', 93107)
 (u'birthday', 97828)

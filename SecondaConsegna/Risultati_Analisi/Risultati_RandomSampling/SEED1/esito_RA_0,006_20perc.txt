@@ -9,7 +9,6 @@ SEED: 1
 ITEMS => OCCORRENZE
 
 
-(u'', 2716563)
 (u'feel', 17639)
 (u'hate', 15866)
 (u'day', 31365)
@@ -18,7 +17,6 @@ ITEMS => OCCORRENZE
 (u'happy', 33282)
 (u'follow', 68142)
 (u'great', 18950)
-(u'\U0001f602', 22590)
 (u'birthday', 19460)
 (u'watch', 24332)
 (u'love', 99889)

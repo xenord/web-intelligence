@@ -9,7 +9,6 @@ SEED: 1
 ITEMS => OCCORRENZE
 
 
-(u'', 2716563)
 (u'day', 31365)
 (u'happy', 33282)
 (u'follow', 68142)
@@ -22,4 +21,4 @@ ITEMS => OCCORRENZE
 (u'back', 32198)
 
 
-Tempo di esecuzione: 0:01:03.884983 secs
+Tempo di esecuzione: 0:01:03.884983 secs    

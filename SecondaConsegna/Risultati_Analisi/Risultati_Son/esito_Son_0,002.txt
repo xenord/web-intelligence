@@ -3,6 +3,7 @@ Lunghezza dataset 12230448
 Occorrenze >= 24461.0
 
 Numero partizioni: 16
+
 (u'rt', 71165)
 (u'leave', 30509)
 (u'hair', 32201)
@@ -23,6 +24,7 @@ Numero partizioni: 16
 (u'phone', 34612)
 (u'person', 35527)
 (u'heart', 32603)
+
 (u'you.', 44303)
 (u'thing', 55059)
 (u'city', 27434)
@@ -52,7 +54,6 @@ Numero partizioni: 16
 (u'play', 49448)
 (u'great', 95146)
 (u'head', 26739)
-(u'\U0001f602', 112304)
 (u'follow me?', 39058)
 (u'#jobs #tweetmyjobs', 28483)
 (u'happy birthday', 54516)
