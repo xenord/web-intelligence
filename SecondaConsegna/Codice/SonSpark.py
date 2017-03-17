@@ -7,7 +7,7 @@ import pyspark
 sc = SparkContext()
 
 ### Definisco PATH, SUPPORTO
-PATH = "/stud/s3/fbenetel/WebIntelligence/Dataset/dataset_cleaned.txt"
+PATH = "/Users/francescobenetello/Documents/Dataset/sample.txt"
 SUPPORTO = 0.006
 MAX_OUTPUT_LENGTH = 50
 ##############################################
@@ -16,10 +16,7 @@ MAX_OUTPUT_LENGTH = 50
 rdd = sc.textFile(PATH)
 ### Calcolo la lunghezza dell'intero dataset
 lineLengths = rdd.map(lambda s: len(s))
-length = lineLengths.collect()
-len = 0
-for x in length:
-	len += 1
+len = lineLengths.count()
 print ("Lunghezza dataset " + str(len) + "\n") 
 ##############################################
 
@@ -116,4 +113,4 @@ if not itemsetss:
 
 
 TIME = format(END_TIME-START_TIME)
-print("Tempo di esecuzione: " + str(TIME) + " secs")       			
+print("Tempo di esecuzione: " + str(TIME) + " secs")			

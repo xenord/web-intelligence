@@ -19,6 +19,9 @@ t = sc.textFile('/Users/francescobenetello/GitHub/web-intelligence/sample.json')
 def f(linea):
 	return json.loads(linea)["text"]
 
-ciao = t.map(lambda linea: json.loads(linea)["text"])
+def removePunctuation(text):
+    return re.sub('[^a-z| |0-9]', '', text.strip().lower())
+
+
 
 print (type(ciao))
