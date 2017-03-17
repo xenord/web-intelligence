@@ -5,36 +5,52 @@ import codecs
 import io
 import sys
 import collections
+import json
 from datetime import datetime
 
-delete_list = ["_", "-", "@", "&amp;", "!","?",".",",","--","…","—","|"]
-start_time = datetime.now()
+PATH_STOPWORDS = '/Users/francescobenetello/Documents/Dataset/stopwords_en.txt'
+PATH_JSON = '/Users/francescobenetello/Desktop/2015-01-08_geo_en_it_10M.plain.json'
+PATH_OUTPUT = '2015-01-08_geo_en_it_10M.plain.txt'
+delete_list = ['amp']
 
-with io.open('stopwords_en.txt', encoding='utf-8') as f:
-	stopwords = f.read().split('\n')
+START_TIME = datetime.now()
+
+def f(linea):
+	return json.loads(linea)["text"]
+
+def removePunctuation(text):
+    return re.sub('[^a-z| |0-9]', '', text.strip().lower())
+
+def main(PATH_STOPWORDS, PATH_JSON, PATH_OUTPUT):
+
+	with io.open(PATH_STOPWORDS, encoding='utf-8') as f:
+		stopwords = f.read().split('\n')
+
+	text_field = []
+	with codecs.open(PATH_JSON, encoding='utf-8', mode='r', errors='ignore') as f:
+		for x in f:
+			line = json.loads(x)["text"]
+			line_cleaned = removePunctuation(line)
+			text_field.append(line_cleaned)
+
+	final = []
+	for x in text_field:
+		s = ''
+		for y in x.split():
+			if y not in stopwords:
+				if y not in delete_list:
+					s = s + ' ' + y
+		final.append(s)
+		final.append('\n')
 
 
-no_stop_words = []
-with codecs.open('merge.txt', encoding='utf-8', mode='r', errors='ignore')as f:
-	array = []
-	for line in f:
-		line_lowered = line.lower()
-		array.append(line_lowered)
+	with open(PATH_OUTPUT, 'w') as f:
+		for values in final:
+			f.write(values)
 
-for i in array:
-	s = ""
-	for j in i.split():
-		if j not in stopwords:
-			if j in delete_list:
-				j = ""
-			s += j 
-			s += " "
-	no_stop_words.append(s)
-	no_stop_words.append("\n")
+	END_TIME = datetime.now()
+	TIME = format(END_TIME-START_TIME)
+	print("Tempo di esecuzione: " + str(TIME) + " sec")
 
-with open("stopwords_removed.txt", 'w') as f:
-	for values in no_stop_words:
-		f.write(values)
-
-end_time = datetime.now()
-print('Duration: {}'.format(end_time - start_time))
+if __name__ == '__main__':
+	main(PATH_STOPWORDS, PATH_JSON, PATH_OUTPUT)
