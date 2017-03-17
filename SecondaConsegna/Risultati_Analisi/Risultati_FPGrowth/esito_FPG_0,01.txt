@@ -1,0 +1,16 @@
+FreqItemset(items=[u'love'], freq=477322)
+FreqItemset(items=[u'follow'], freq=328928)
+FreqItemset(items=[u'good'], freq=223578)
+FreqItemset(items=[u'lol'], freq=182315)
+FreqItemset(items=[u'time'], freq=166077)
+FreqItemset(items=[u'happy'], freq=162876)
+FreqItemset(items=[u'make'], freq=160653)
+FreqItemset(items=[u'back'], freq=156778)
+FreqItemset(items=[u'day'], freq=152325)
+FreqItemset(items=[u'people'], freq=145884)
+
+Tempo di esecuzione: 0:00:31.997535 secs
+
+
+
+

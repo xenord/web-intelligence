@@ -1,0 +1,92 @@
+Occorrenze >= 9784.356
+
+Lunghezza sample: 2446089
+
+SEED: 5
+
+
+
+ITEMS => OCCORRENZE
+
+
+(u'', 2716708)
+(u'rt', 14179)
+(u'fucking', 13832)
+(u'tonight', 11232)
+(u'feel', 17495)
+(u'big', 12678)
+(u'girl', 13808)
+(u'school', 12650)
+(u'play', 9986)
+(u'3', 12788)
+(u'hate', 16182)
+(u'\U0001f60d', 10326)
+(u'(with', 10769)
+(u'hey', 12208)
+(u'day', 30992)
+(u'today', 23614)
+(u'shit', 21587)
+(u'morning', 10342)
+(u'happy', 33291)
+(u'watching', 10321)
+(u'la', 9955)
+(u'baby', 10689)
+(u'real', 11092)
+(u'god', 11323)
+(u'follow', 67803)
+(u'world', 12602)
+(u'me?', 11017)
+(u'(@', 9964)
+(u'@harry_styles', 10937)
+(u'bad', 12372)
+(u'great', 18774)
+(u'\U0001f602', 22552)
+(u'birthday', 19645)
+(u'watch', 24446)
+(u'love', 99417)
+(u'dream', 11085)
+(u'sleep', 10261)
+(u'stop', 12776)
+(u'fuck', 20152)
+(u':)', 16948)
+(u'hope', 18097)
+(u'lol', 36860)
+(u'people', 30150)
+(u'year', 11650)
+(u'give', 16256)
+(u'night', 19653)
+(u'di', 9943)
+(u'time', 33993)
+(u'ass', 12427)
+(u'thing', 11063)
+(u'home', 14845)
+(u'#happymatturday', 11695)
+(u'life', 21888)
+(u'game', 15086)
+(u'make', 32620)
+(u'2', 18578)
+(u'work', 15650)
+(u'made', 10920)
+(u'good', 46225)
+(u'im', 20029)
+(u'miss', 16044)
+(u'wanna', 17726)
+(u'video', 15185)
+(u'tomorrow', 10569)
+(u'back', 32039)
+(u'check', 10609)
+(u'gonna', 16667)
+(u'ur', 10074)
+(u'@themattespinosa', 9858)
+(u'man', 13847)
+(u'wait', 11922)
+(u'nice', 10559)
+
+
+ITEMSET => OCCORRENZE
+
+
+(u'happy birthday', 10902)
+
+
+Tempo di esecuzione: 0:01:04.141399 secs

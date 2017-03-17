@@ -1,33 +1,21 @@
 from pyspark import SparkContext, SparkConf
+from datetime import datetime
 import pyspark
-import time
-import json
 
 
 # Creo un oggetto SparkContext
 sc = SparkContext()
 
 ### Definisco PATH, SUPPORTO
-#filePath = '/stud/s3/fbenetel/WebIntelligence/Dataset/dataset_cleaned.txt'
-filePath = '/Users/francescobenetello/Documents/Dataset/sample.txt'
-# Lunghezza dataset 12230456
-#lunghezzza ideal 12230448
-SUPPORTO = 0.001
+PATH = "/stud/s3/fbenetel/WebIntelligence/Dataset/dataset_cleaned.txt"
+SUPPORTO = 0.006
+MAX_OUTPUT_LENGTH = 50
 ##############################################
 
 
-# Apro il file
-'''
-openJSON = sc.textFile(filePath)
-
-def f(linea):
-	return json.loads(linea)["text"]
-
-set_of_tweets = openJSON.map(lambda linea: json.loads(linea)["text"])
-'''
-set_of_tweets = sc.textFile(filePath)
+rdd = sc.textFile(PATH)
 ### Calcolo la lunghezza dell'intero dataset
-lineLengths = set_of_tweets.map(lambda s: len(s))
+lineLengths = rdd.map(lambda s: len(s))
 length = lineLengths.collect()
 len = 0
 for x in length:
@@ -35,7 +23,7 @@ for x in length:
 print ("Lunghezza dataset " + str(len) + "\n") 
 ##############################################
 
-def supporto_calcolato(supporto,dataset_len):
+def get_minimun_occurence(supporto,dataset_len):
 	return (supporto*(dataset_len))
 
 
@@ -67,55 +55,65 @@ def word_pairs(words):
 def word_triple(words):
 	return [a + " " + b + " " + c for a,b,c in zip(words, words[1:], words[2:])]
 
+def word_quadruples(words):
+    return [a + " " + b + " " + c + " " + d for a,b,c,d in zip(words, words[1:], words[2:], words[3:])]
+
 
 ### Calcolo supporto minimo e lunghezza del sample
-minsup = supporto_calcolato(SUPPORTO, len)
+minsup = get_minimun_occurence(SUPPORTO, len)
 minsup = round(minsup)
 print("Occorrenze >= " + str(minsup) + "\n") 
 ##################################################
 
 
 
-START_TIME = time.time()
+START_TIME = datetime.now()
 
-splitted = set_of_tweets.map(lambda line: line.split())
+splitted = rdd.map(lambda line: line.split())
 print ('Numero partizioni: ' + str(splitted.getNumPartitions()))
-items = splitted.mapPartitions(word_occurence).filter(lambda (word, count): count >= minsup).glom().collect()
+# ITEM
+items = splitted.mapPartitions(word_occurence).reduceByKey(lambda a, b: a + b).filter(lambda (word, count): count >= minsup).take(MAX_OUTPUT_LENGTH)
 
-
+# ITEMSET
 words = splitted.flatMap(word_pairs)
-itemset = words.mapPartitions(word_occurence_pairs).filter(lambda (word, count): count >= minsup).glom().collect()
+itemset = words.mapPartitions(word_occurence_pairs).reduceByKey(lambda a, b: a + b).filter(lambda (word, count): count >= minsup).take(MAX_OUTPUT_LENGTH)
 
 triples = splitted.flatMap(word_triple)
-itemsets = triples.mapPartitions(word_occurence_pairs).filter(lambda (word, count): count >= minsup).glom().collect()
-END_TIME = time.time()
+itemsets = triples.mapPartitions(word_occurence_pairs).reduceByKey(lambda a, b: a + b).filter(lambda (word, count): count >= minsup).take(MAX_OUTPUT_LENGTH)
 
-num_partition = 1
-print ("ITEMS")
-for x in items:
-	print ("PARTIZIONE NUMERO " + str(num_partition) + "\n")
-	for y in x:
-		print(y)
-	print("FINE PARTIZIONE\n")
-	num_partition += 1
+quadruples = splitted.flatMap(word_quadruples)
+itemsetss = quadruples.mapPartitions(word_occurence_pairs).reduceByKey(lambda a, b: a + b).filter(lambda (word, count): count >= minsup).take(MAX_OUTPUT_LENGTH)
 
-num_partition = 1
-print ("ITEMSET")
-for x in itemset:
-	print ("PARTIZIONE NUMERO " + str(num_partition) + "\n")
-	for y in x:
-		print(y)
-	print("FINE PARTIZIONE\n")
-	num_partition += 1
+END_TIME = datetime.now()
 
-num_partition = 1
-print ("ITEMSET")
-for x in itemsets:
-	print ("PARTIZIONE NUMERO " + str(num_partition) + "\n")
-	for y in x:
-		print(y)
-	print("FINE PARTIZIONE\n")
-	num_partition += 1
+if items:
+	for x in items:
+		print(x)
 
-TIME =(END_TIME-START_TIME)
+if not items:
+	print("Vuoto!")
+
+if itemset:
+	for x in itemset:
+		print(x)
+
+if not itemset:
+	print("Non ci sono coppie di valori!")
+
+if itemsets:
+	for x in itemsets:
+		print(x)
+
+if not itemsets:
+	print("Non ci sono triple di valori!")
+
+if itemsetss:
+	for x in itemsetss:
+		print(x)
+
+if not itemsetss:
+	print("Non ci sono quadruple di valori!")
+
+
+TIME = format(END_TIME-START_TIME)
 print("Tempo di esecuzione: " + str(TIME) + " secs")       			

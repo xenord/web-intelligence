@@ -1,0 +1,41 @@
+Lunghezza dataset 12230448
+
+Occorrenze >= 73383.0
+
+Numero partizioni: 16
+(u'life', 109471)
+(u'great', 95146)
+(u'game', 75404)
+(u'good', 230791)
+(u'2', 93107)
+(u'birthday', 97828)
+(u'love', 498152)
+(u'im', 100742)
+(u'video', 75900)
+(u':)', 84523)
+(u'night', 97612)
+(u'people', 150992)
+(u'time', 169748)
+(u'give', 82160)
+(u'feel', 88163)
+(u'follow', 341451)
+(u'home', 74295)
+(u'make', 163959)
+(u'work', 78055)
+(u'hate', 79642)
+(u'watch', 121468)
+(u'wanna', 88976)
+(u'miss', 79644)
+(u'back', 160174)
+(u'fuck', 99944)
+(u'day', 156645)
+(u'today', 117859)
+(u'shit', 106984)
+(u'lol', 185922)
+(u'gonna', 82558)
+(u'hope', 90222)
+(u'happy', 166632)
+Non ci sono coppie di valori!
+Non ci sono triple di valori!
+Non ci sono quadruple di valori!
+Tempo di esecuzione: 0:03:06.560343 secs

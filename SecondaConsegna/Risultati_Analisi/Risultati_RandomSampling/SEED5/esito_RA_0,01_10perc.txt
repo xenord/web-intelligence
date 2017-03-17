@@ -1,0 +1,24 @@
+Occorrenze >= 12230.44
+
+Lunghezza sample: 1223044
+
+SEED: 5
+
+
+
+ITEMS => OCCORRENZE
+
+
+(u'day', 15449)
+(u'happy', 16735)
+(u'follow', 34038)
+(u'love', 49950)
+(u'lol', 18438)
+(u'people', 15127)
+(u'time', 17059)
+(u'make', 16270)
+(u'good', 23137)
+(u'back', 15943)
+
+
+Tempo di esecuzione: 0:00:33.444893 secs
