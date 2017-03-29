@@ -140,7 +140,7 @@ if __name__ == "__main__":
     sc  = SparkContext(conf=conf)
 
     f_input = "/Users/francescobenetello/Documents/Dataset/sample.txt"
-    threshold = 0.001
+    threshold = 0.01
     '''
     if len(sys.argv) > 4:
         numPartitions = int(sys.argv[4])

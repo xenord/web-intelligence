@@ -8,13 +8,13 @@ import io
 sc=SparkContext()
 
 
-data = sc.textFile('/Users/francescobenetello/Documents/Dataset/simplest_sample.txt')
+data = sc.textFile('/Users/francescobenetello/Documents/Dataset/sample.txt')
 
 transactions = data.map(lambda line: line.strip().split(' '))
 unique= transactions.map(lambda x: list(set(x)))
 
 START_TIME = datetime.now()
-model = FPGrowth.train(unique, minSupport=0.0001, numPartitions=2)
+model = FPGrowth.train(unique, minSupport=0.01, numPartitions=2)
 END_TIME = datetime.now()
 
 result = model.freqItemsets().collect()
