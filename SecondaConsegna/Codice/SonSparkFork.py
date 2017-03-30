@@ -14,8 +14,8 @@ import math
 
 
 ### Definisco PATH, SUPPORTO
-PATH = '/Users/francescobenetello/Documents/Dataset/sample.txt'
-SUPPORTO = 0.01
+PATH = '/stud/s3/fbenetel/sample.txt'
+SUPPORTO = 0.005
 MAX_OUTPUT_LENGTH = 50
 ##############################################
 
@@ -83,12 +83,19 @@ Mentre k e' il raggruppamento, cioe' se si cercano coppie sara' k=2, triple k=3 
 '''
 def generate_frequent_itemset(list_of_list):
     wordcount = {}
+    tlist = []
 
     for k,v in list_of_list:
         for pattern in range(1, v):
-            z = tuple(combinations(k, pattern))
-            if z not in wordcount:
-                wordcount[z] = 1
+            z = list(combinations(k, pattern))
+            for itemset in z:
+                if itemset not in tlist:
+                    tlist.append(itemset)
+
+    for elem in tlist:
+        t = tuple(elem)
+        if t not in wordcount:
+            wordcount[t] = 0
 
     return wordcount.items()
 
@@ -125,6 +132,8 @@ print ('Numero partizioni: ' + str(splitted.getNumPartitions()) + '\n')
 
 items = unique.mapPartitions(word_occurence).reduceByKey(lambda a, b: a + b).filter(lambda (word, count): count >= minsup)
 
+
+
 items_only = items.map(lambda x: x[0]).collect()
 
 
@@ -137,35 +146,32 @@ http://stackoverflow.com/questions/4059550/generate-all-possible-strings-from-a-
 items_as_array = unique.mapPartitions(getMatrix)
 items_as_array_cleaned = items_as_array.mapPartitions(getFrequencies).reduceByKey(lambda a, b: a)
 final = items_as_array_cleaned.mapPartitions(generate_frequent_itemset).reduceByKey(lambda a, b: a)
-casted = final.map(lambda x: set(x[0])).collect()
 
+
+casted = final.map(lambda x: x[0]).collect()
 setted = unique.map(lambda x: set(x)).collect()
+
+settiamo = []
+
+for x in casted:
+    z = set(x)
+    if z not in settiamo:
+        settiamo.append(z)
 
 
 ciao = {}
 for x in setted:
-    for y in casted:
-        for z in y:
-            if x.issuperset(z):
-                t = tuple(z)
-                if t not in ciao:
-                    ciao[t] = 1
-                else:
-                    ciao[t] += 1
+    for y in settiamo:
+        if x.issuperset(y):
+            t = tuple(y)
+            if t not in ciao:
+                ciao[t] = 1
+            else:
+                ciao[t] += 1
 
 for k,v in ciao.items():
     if v >= minsup:
-        print (k,v)
+        print(k,v)
 
-'''
-for x in casted:
-    print (x)
-print ('\n')
-for x in setted:
-    print (x)
-'''
-
-
-
-
-
+#l1 = ['ciao','mi','chiamo','francesco']
+#l2 = ['ciao','francesco']
