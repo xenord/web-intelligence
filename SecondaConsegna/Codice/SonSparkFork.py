@@ -14,8 +14,8 @@ import math
 
 
 ### Definisco PATH, SUPPORTO
-PATH = '/stud/s3/fbenetel/sample.txt'
-SUPPORTO = 0.005
+PATH = '/Users/francescobenetello/Documents/Dataset/sample.txt'
+SUPPORTO = 0.01
 MAX_OUTPUT_LENGTH = 50
 ##############################################
 
@@ -100,78 +100,63 @@ def generate_frequent_itemset(list_of_list):
     return wordcount.items()
 
 
+def foo(list_of_list):
+    wordcount = {}
 
-'''
-Calcolo coefficiente binomiale
+    for x in list_of_list:
+        for y in ciao:
+            if x.issuperset(y):
+                t = tuple(y)
+                if t not in wordcount:
+                    wordcount[t] = 1
+                else:
+                    wordcount[t] += 1
 
-lunghezza_tweet: lunghezza del tweet formato solo da parole frequenti
-lunghezza_itemset: lunghezza del itemset (coppie, triple, quadruple ecc)
-'''
-def combinazioni_per_itemset(lunghezza_tweet, lunghezza_itemset):
-    coeff_binom = (math.factorial(lunghezza_tweet))/(math.factorial(lunghezza_itemset)*(math.factorial(lunghezza_tweet-lunghezza_itemset)))
-    return coeff_binom
-
-
-
-
-sc = SparkContext()
-
-rdd = sc.textFile(PATH)
-
-lun = rdd.count()
-print('\n')
-print ("Lunghezza dataset " + str(lun) + "\n") 
-
-minsup = get_minimun_occurence(SUPPORTO, lun)
-minsup = round(minsup)
-print("Occorrenze >= " + str(minsup) + "\n") 
-
-splitted = rdd.map(lambda line: [y for y in line.strip().split(' ')])
-unique = splitted.map(lambda x: list(set(x)))
-print ('Numero partizioni: ' + str(splitted.getNumPartitions()) + '\n')
-
-items = unique.mapPartitions(word_occurence).reduceByKey(lambda a, b: a + b).filter(lambda (word, count): count >= minsup)
+    return wordcount.items()
 
 
 
-items_only = items.map(lambda x: x[0]).collect()
 
 
-'''
-Poco efficienti
 
-Guarda per generare frequent itemset:
-http://stackoverflow.com/questions/4059550/generate-all-possible-strings-from-a-list-of-token
-'''
-items_as_array = unique.mapPartitions(getMatrix)
-items_as_array_cleaned = items_as_array.mapPartitions(getFrequencies).reduceByKey(lambda a, b: a)
-final = items_as_array_cleaned.mapPartitions(generate_frequent_itemset).reduceByKey(lambda a, b: a)
+if __name__ == '__main__':
+
+    sc = SparkContext()
+
+    rdd = sc.textFile(PATH)
+
+    lun = rdd.count()
+    print('\n')
+    print ("Lunghezza dataset " + str(lun) + "\n") 
+
+    minsup = get_minimun_occurence(SUPPORTO, lun)
+    minsup = round(minsup)
+    print("Occorrenze >= " + str(minsup) + "\n") 
+
+    splitted = rdd.map(lambda line: [y for y in line.strip().split(' ')])
+    unique = splitted.map(lambda x: list(set(x)))
+    print ('Numero partizioni: ' + str(splitted.getNumPartitions()) + '\n')
+
+    items = unique.mapPartitions(word_occurence).reduceByKey(lambda a, b: a + b).filter(lambda (word, count): count >= minsup)
+    items_only = items.map(lambda x: x[0]).collect()
+
+    items_as_array = unique.mapPartitions(getMatrix)
+    items_as_array_cleaned = items_as_array.mapPartitions(getFrequencies).reduceByKey(lambda x,y : x)
+    frequent_items_candidates = items_as_array_cleaned.mapPartitions(generate_frequent_itemset)
+    frequent_items_candidates_final = frequent_items_candidates.reduceByKey(lambda x,y : x)
+
+    casted = frequent_items_candidates_final.map(lambda x: set(x[0])).collect()
+
+    ciao = []
+    for x in casted:
+        if x not in ciao:
+            ciao.append(x)
 
 
-casted = final.map(lambda x: x[0]).collect()
-setted = unique.map(lambda x: set(x)).collect()
+    setted = unique.map(lambda x: set(x))
+    final = setted.mapPartitions(foo).reduceByKey(lambda a, b: a + b).filter(lambda (word, count): count >= minsup)
 
-settiamo = []
+    for x in final.collect():
+        print (x)
 
-for x in casted:
-    z = set(x)
-    if z not in settiamo:
-        settiamo.append(z)
-
-
-ciao = {}
-for x in setted:
-    for y in settiamo:
-        if x.issuperset(y):
-            t = tuple(y)
-            if t not in ciao:
-                ciao[t] = 1
-            else:
-                ciao[t] += 1
-
-for k,v in ciao.items():
-    if v >= minsup:
-        print(k,v)
-
-#l1 = ['ciao','mi','chiamo','francesco']
-#l2 = ['ciao','francesco']
+    #print("Tempo di esecuzione: " + str(TIME) + " sec")
