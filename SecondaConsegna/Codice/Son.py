@@ -1,19 +1,22 @@
-__author__ = 'Francesco Benetello'
-
-from pyspark import SparkContext, SparkConf
+import sys
+import copy
+import json
+from string import atoi
 from datetime import datetime
-import pyspark
+from pyspark import SparkContext, SparkConf
+from collections import defaultdict
+from itertools import imap, combinations
 
-
-### Definisco PATH, SUPPORTO, GRANDEZZA SAMPLE, SEED
-filePath = '/Users/francescobenetello/Documents/Dataset/sample.txt'
-SUPPORTO = 0.5
-GRANDEZZA_SAMPLE = 20
-SEED = 1
+### Definisco PATH, SUPPORTO
+PATH = '/Users/francescobenetello/Documents/Dataset/sample.txt'
+SUPPORTO = 0.01
+MAX_OUTPUT_LENGTH = 50
 ##############################################
 
-def supporto_calcolato(supporto,dataset_len):
-    return (supporto*dataset_len)/100
+
+def get_minimun_occurence(supporto,dataset_len):
+    return (supporto*(dataset_len))
+
 
 def create_candidates(tlist, pattern):
     list_of_pattern = []
@@ -125,32 +128,28 @@ def foo(list_of_list):
 
 
 
-if __name__ == "__main__":
-    
-    # Creo un oggetto SparkContext
-    sc = SparkContext()
-    # Apro il file
-    rdd = sc.textFile(filePath)
 
-    ### Calcolo la lunghezza dell'intero dataset
+
+if __name__ == "__main__":
+
+    # Creo un oggetto Spark
+    sc  = SparkContext()
+
+    # Apro RDD
+    rdd = sc.textFile(PATH)
+
+    # Ottengo il numero di partizioni in cui spark suddivide il proprio lavoro
+    numPartitions = rdd.getNumPartitions()
+
+    # Cerco la lunghezza del rdd
     lun = rdd.count()
 
-    ### Calcolo supporto minimo e lunghezza del sample
-    subsetLength = (lun*GRANDEZZA_SAMPLE)//100
-    minsup = supporto_calcolato(SUPPORTO, subsetLength)
-
-    print("Occorrenze >= " + str(minsup) + "\n")
-    print("Lunghezza sample: " + str(subsetLength) + "\n")
-    print("SEED: " + str(SEED) + "\n")
-
-    randomsampling = rdd.takeSample(False, subsetLength, SEED)
-    sample = sc.parallelize(randomsampling)
-
-    numPartitions = sample.getNumPartitions()
-    print("Numero partizioni: " +str(numPartitions))
+    # Calcolo il numero minimo di occorrenze totale e per partizione
+    minsup = get_minimun_occurence(SUPPORTO, lun)
     min_sup_per_partitions = minsup / numPartitions
 
-    splitted = sample.map(lambda line: line.strip().split(' '))
+    # Split riga per riga del dataset e rimuovo candidati dal basket
+    splitted = rdd.map(lambda line: line.strip().split(' '))
     unique = splitted.map(lambda x: list(set(x))).map(lambda x: set(x))
 
     START_TIME = datetime.now()

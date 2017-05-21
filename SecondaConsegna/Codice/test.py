@@ -26,7 +26,8 @@ def frequent_items(items, transactions, min_sup):
     localDict = defaultdict(int)
     for item in items:
         for transaction in transactions:
-            if item.issubset(transaction):localDict[item] += 1
+            if item.issubset(transaction):
+                localDict[item] += 1
 
     for item, count in localDict.items():
         if count >= min_sup:

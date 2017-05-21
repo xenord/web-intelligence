@@ -14,13 +14,16 @@ transactions = data.map(lambda line: line.strip().split(' '))
 unique= transactions.map(lambda x: list(set(x)))
 
 START_TIME = datetime.now()
-model = FPGrowth.train(unique, minSupport=0.01, numPartitions=2)
+model = FPGrowth.train(unique, minSupport=0.005, numPartitions=2)
 END_TIME = datetime.now()
 
-result = model.freqItemsets().collect()
+result = model.freqItemsets()
+number_of_results = result.count()
 
-for fi in result:
+print("Numero di risultati: " +str(number_of_results))
+for fi in result.collect():
     print(fi)
 
 TIME = format(END_TIME-START_TIME)
+print("Numero di risultati: " +str(number_of_results) + '\n')
 print("Tempo di esecuzione: " + str(TIME) + " sec")
