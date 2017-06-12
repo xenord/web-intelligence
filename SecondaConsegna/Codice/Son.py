@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+__author__ = "Francesco Benetello"
 import sys
 import copy
 import json
@@ -10,7 +13,6 @@ from itertools import imap, combinations
 ### Definisco PATH, SUPPORTO
 PATH = '/Users/francescobenetello/Documents/Dataset/sample.txt'
 SUPPORTO = 0.01
-MAX_OUTPUT_LENGTH = 50
 ##############################################
 
 
@@ -30,12 +32,10 @@ def create_candidates(tlist, pattern):
     return set(list_of_pattern)
 
 
-# Checks occurrences of items in transactions and returns frequent items
-# input:
-#    items: a set of frequent items (candidates)
-#     transactions: list of sets representing baskets
-#  returns:
-#      _itemSet: a set containing all frequent candidates (a subset of inputs)
+'''
+frequent_items prende in input il set contenente i candidati generati da create_candidates e il dataset castato in set.
+La scelta di usare un set deriva dal fatto che mi servirà la funzione issubset
+'''
 
 def frequent_items(items, line_to_set):
     itemset = set()
@@ -82,6 +82,18 @@ def generate_frequent_itemset(data):
 
     '''
 
+    create_candidates che prende in input il pattern e un dizionario inizialmente contente i frequent itemset della partizione
+    e candidati di lunghezza pattern
+
+    frequent_items che prende in input il set contenente i candidati generati da create_candidates e il dataset castato in set perchè dopo servirà
+    la funzione issubset
+
+    Ciclo while che conta a partire dalle coppie, vedi pattern = 2, le occorrenze all'interno della propria partizione(o nodo), 
+    preleva quelle maggiori al min_sup_per_partitions, 
+    se ci sono frequent itemset di lunghezza pattern li inserisce nella variabile se e inizia un nuovo ciclo con pattern + 1,
+    altrimenti se non ci sono frequent itemset che superano il min_sup_per_partitions il ciclo termina e restituisce solo quelli frequenti
+
+    I candidati vengono generati in base ai frequent itemset con pattern-1
     '''
     steps=1
     pattern = 2
@@ -117,6 +129,7 @@ def foo(list_of_list):
 
     for tlist in list_of_list:
         for candidate in itemset:
+            # Non posso passare itemset come rdd, ma per forza come collection
             if tlist.issuperset(candidate):
                 if candidate not in wordcount:
                     wordcount[candidate] = 1
@@ -157,9 +170,15 @@ if __name__ == "__main__":
     # Genero candidati, rimuovendo i duplicati e prendo solo le chiavi
     candidates = splitted.mapPartitions(generate_frequent_itemset)
     cleaned = candidates.mapPartitions(clean_set).reduceByKey(lambda a, b: a)
+
+    # WARNING
+    # Questa collection itemset, purtroppo sono costretto a ritornarla come collect altrimenti nella funzione foo dove
+    # conto per la seconda volta le parole frequenti basandomi sui candidati calcolati in alto, mi da errore che non posso confrontare
+    # direttamente due rdd
     itemset = cleaned.map(lambda x: x[0]).collect()
 
-    # Confronto i candidati con il dataset e conto quante volte compare un candidato nel dataset
+    # WARNING (vedi funzione foo2)
+    # Confronto i frequent itemset candidati con il dataset (per la seconda volta) e conto quante volte compare un candidato nel dataset
     counter = unique.mapPartitions(foo)
 
     # Merge di tutte le partizioni e filtro per minsup
