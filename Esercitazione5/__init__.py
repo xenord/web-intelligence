@@ -6,7 +6,7 @@ import pyspark
 
 sc = SparkContext()
 
-textfile = sc.textFile("venezia72_2015.txt")
+textfile = sc.textFile("/Users/francescobenetello/GitHub/web-intelligence/Esercitazione5/venezia72_2015.txt")
 
 words = textfile.flatMap(lambda line: line.split(' '))
 

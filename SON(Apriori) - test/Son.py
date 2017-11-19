@@ -169,9 +169,11 @@ if __name__ == "__main__":
     
     # Genero candidati, rimuovendo i duplicati e prendo solo le chiavi
     candidates = splitted.mapPartitions(generate_frequent_itemset)
-    # La funziona clean_set la uso perchè non mi è permesso separare le chiavi dai valori interni ai set o frozenset
-    cleaned = candidates.mapPartitions(clean_set).reduceByKey(lambda a, b: a)
+    #cleaned = candidates.mapPartitions(clean_set).reduceByKey(lambda a, b: a)
 
+    figa = candidates.reduceByKey(lambda a, b: a)
+
+    '''
     # WARNING
     # Questa collection itemset, purtroppo sono costretto a ritornarla come collect altrimenti nella funzione foo dove
     # conto per la seconda volta le parole frequenti basandomi sui candidati calcolati in alto, mi da errore che non posso confrontare
@@ -197,3 +199,4 @@ if __name__ == "__main__":
 
     print("Numero risultati: " + str(number_of_results)+ '\n')
     print("Tempo di esecuzione: " + str(TIME) + " sec")
+    '''
